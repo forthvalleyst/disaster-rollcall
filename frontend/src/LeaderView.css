@@ -1,0 +1,816 @@
+.leader-view {
+  max-width: 680px;
+}
+
+.view-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f5c6c6;
+  margin-bottom: 8px;
+}
+
+.view-desc {
+  color: #9aa0b0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* ===== Form ===== */
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #bbb;
+  letter-spacing: 0.05em;
+}
+
+.report-textarea {
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+  color: #e8eaf0;
+  font-size: 1rem;
+  line-height: 1.7;
+  padding: 14px 16px;
+  resize: vertical;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.report-textarea:focus {
+  outline: none;
+  border-color: #c0392b;
+}
+
+.report-textarea::placeholder {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.report-textarea:disabled {
+  opacity: 0.5;
+}
+
+/* ===== Recording indicator (fixed top) ===== */
+.recording-indicator {
+  position: fixed;
+  top: 60px; /* sticky header の高さ分だけ下げる */
+  left: 0;
+  right: 0;
+  background: rgba(192, 57, 43, 0.95);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  z-index: 99;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+.recording-dot {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: blink-dot 0.9s ease-in-out infinite;
+}
+
+@keyframes blink-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+
+.recording-interim {
+  flex: 1;
+  font-weight: 400;
+  font-size: 0.83rem;
+  opacity: 0.88;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* textarea が録音中のとき枠線を強調 */
+.report-textarea.listening {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.25);
+}
+
+/* ===== Report guide ===== */
+.guide-panel {
+  background: #0f1923;
+  border: 1px solid #2d3f54;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #1e2a38;
+}
+
+.guide-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7a8d;
+  white-space: nowrap;
+}
+
+.guide-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.guide-badge {
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+.guide-template-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  flex-wrap: wrap;
+}
+
+.guide-template-text {
+  color: #7b8aa0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+  min-width: 0; /* テキストが縮小できるよう */
+  font-family: monospace;
+}
+
+.use-template-btn {
+  background: transparent;
+  border: 1px solid #3a4a5e;
+  border-radius: 6px;
+  color: #7b8aa0;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.use-template-btn:hover {
+  background: #1e2a38;
+  border-color: #c0392b;
+  color: #e8eaf0;
+}
+
+/* ===== Mic button ===== */
+.mic-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mic-btn {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #1e2a38;
+  border: 2px solid #2d3f54;
+  color: #9aa0b0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  touch-action: none; /* ポインターイベントの干渉を防ぐ */
+  user-select: none;
+}
+
+.mic-btn:hover:not(:disabled) {
+  background: #263447;
+  border-color: #c0392b;
+  color: #e8eaf0;
+}
+
+.mic-btn.listening {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff;
+  animation: mic-pulse 0.9s ease-in-out infinite;
+}
+
+.mic-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(192, 57, 43, 0); }
+}
+
+.mic-hint {
+  font-size: 0.85rem;
+  color: #7b8aa0;
+  line-height: 1.5;
+}
+
+.alert-warning {
+  background: #1a1400;
+  border: 1px solid #b7950b;
+  color: #f4d03f;
+}
+
+/* ===== Submit button ===== */
+.submit-btn {
+  align-items: center;
+  align-self: flex-start;
+  background: #c0392b;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 600;
+  gap: 10px;
+  letter-spacing: 0.05em;
+  padding: 12px 36px;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #a93226;
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-btn.loading {
+  background: #6d1f1a;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Alerts ===== */
+.alert {
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  padding: 12px 16px;
+}
+
+.alert-error {
+  background: #2d0a0a;
+  border: 1px solid #c0392b;
+  color: #f1948a;
+}
+
+.alert-success {
+  background: #0a2d14;
+  border: 1px solid #27ae60;
+  color: #82e0aa;
+  margin-top: 0;
+}
+
+/* ===== Result card ===== */
+.success-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.result-card {
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.result-header {
+  align-items: center;
+  border-left: 4px solid #888;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.result-team {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.result-status {
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 4px 14px;
+}
+
+.result-grid {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: #2d3f54;
+  border-top: 1px solid #2d3f54;
+}
+
+.result-item {
+  background: #162030;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+}
+
+.result-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.result-label {
+  color: #7b8aa0;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.result-value {
+  color: #e8eaf0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ===== Edit button ===== */
+.edit-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid #3a4a5e;
+  border-radius: 8px;
+  color: #7b8aa0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.edit-btn:hover {
+  background: #1e2a38;
+  border-color: #c0392b;
+  color: #e8eaf0;
+}
+
+/* ===== Raw text toggle ===== */
+.raw-toggle {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.raw-toggle summary {
+  cursor: pointer;
+  color: #6b7a8d;
+  user-select: none;
+}
+
+.raw-toggle summary:hover {
+  color: #9aa0b0;
+}
+
+.raw-text {
+  background: #111;
+  border: 1px solid #2d3f54;
+  border-radius: 6px;
+  color: #9aa0b0;
+  font-family: monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin-top: 8px;
+  padding: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ===== Mobile (≤768px) ===== */
+@media (max-width: 768px) {
+  .leader-view {
+    /* 画面下部に固定したボタンに隠れないよう余白を確保 */
+    padding-bottom: 80px;
+  }
+
+  .view-title {
+    font-size: 1.3rem;
+  }
+
+  .view-desc {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 1rem;
+  }
+
+  .report-textarea {
+    font-size: 1.1rem;
+    min-height: 220px;
+    padding: 16px;
+    /* iOS でズームしないよう16px以上を維持 */
+  }
+
+  .report-textarea::placeholder {
+    font-size: 1rem;
+  }
+
+  /* 送信ボタンを画面下部に固定・フルワイド */
+  .submit-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    justify-content: center;
+    min-height: 60px;
+    font-size: 1.1rem;
+    z-index: 50;
+    /* セーフエリア（ノッチ付き端末）対応 */
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  /* モバイルはヘッダーが折り返して高さが変わるため top を調整 */
+  .recording-indicator {
+    top: 0;
+    font-size: 0.92rem;
+    padding: 10px 16px;
+  }
+
+  .guide-template-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .use-template-btn {
+    align-self: flex-end;
+    min-height: 40px;
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
+  .mic-btn {
+    width: 72px;
+    height: 72px;
+  }
+
+  .mic-hint {
+    font-size: 0.9rem;
+  }
+
+  .alert {
+    font-size: 0.95rem;
+    padding: 14px 16px;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .result-value {
+    font-size: 1rem;
+  }
+}
+
+/* ===== Structured form ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.team-select {
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+  color: #e8eaf0;
+  font-size: 1rem;
+  padding: 12px 14px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.team-select:focus {
+  outline: none;
+  border-color: #c0392b;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-input {
+  flex: 1;
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+  color: #e8eaf0;
+  font-size: 1rem;
+  padding: 12px 14px;
+  transition: border-color 0.2s;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: #c0392b;
+}
+
+.field-input::placeholder {
+  color: #4a5568;
+}
+
+.field-input:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.number-input {
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+  color: #e8eaf0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  width: 120px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.number-input:focus {
+  outline: none;
+  border-color: #c0392b;
+}
+
+.number-unit {
+  color: #7b8aa0;
+  font-size: 0.9rem;
+}
+
+/* ===== 人数内訳グリッド ===== */
+.counts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.count-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.count-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.count-safe    { background: #27ae60; }
+.count-unknown { background: #e67e22; }
+.count-danger  { background: #c0392b; }
+
+.count-input {
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+  color: #e8eaf0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 12px 8px;
+  text-align: center;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.count-input:focus {
+  outline: none;
+  border-color: #c0392b;
+}
+
+/* ===== 合計チェック ===== */
+.sum-check {
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.sum-ok {
+  background: #0a2d14;
+  border: 1px solid #27ae60;
+  color: #82e0aa;
+}
+
+.sum-warning {
+  background: #1a1000;
+  border: 1px solid #e67e22;
+  color: #f0b27a;
+}
+
+/* ===== 判定状態プレビュー ===== */
+.status-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #0f1923;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+}
+
+.status-preview-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7b8aa0;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.status-preview-badge {
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  letter-spacing: 0.04em;
+}
+
+.status-preview-note {
+  font-size: 0.78rem;
+  color: #4a5568;
+}
+
+/* ===== 備考テキストエリア ===== */
+.remarks-row {
+  align-items: flex-start; /* マイクボタンを上端に揃える */
+}
+
+.remarks-textarea {
+  flex: 1;
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 8px;
+  color: #e8eaf0;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 12px 14px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.remarks-textarea:focus {
+  outline: none;
+  border-color: #c0392b;
+}
+
+.remarks-textarea::placeholder {
+  color: #4a5568;
+}
+
+/* ===== フィールド用マイクボタン ===== */
+.field-mic-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #2d3f54;
+  background: #1e2a38;
+  color: #9aa0b0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  touch-action: none;
+  user-select: none;
+}
+
+.field-mic-btn:hover {
+  border-color: #c0392b;
+  color: #e8eaf0;
+}
+
+.field-mic-btn.listening {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff;
+  animation: mic-pulse 0.9s ease-in-out infinite;
+}
+
+/* ===== 負傷者名チップ ===== */
+.name-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.name-chip {
+  background: #1e2a38;
+  border: 1px solid #2d3f54;
+  border-radius: 20px;
+  color: #9aa0b0;
+  font-size: 0.85rem;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.name-chip.selected {
+  background: #2d0a0a;
+  border-color: #e74c3c;
+  color: #f1948a;
+}
+
+.name-chip:hover:not(.selected) {
+  border-color: #5dade2;
+  color: #e8eaf0;
+}
+
+/* ===== Structured form mobile (≤768px) ===== */
+@media (max-width: 768px) {
+  .number-input {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+
+  .count-input {
+    font-size: 1.6rem;
+    padding: 14px 8px;
+  }
+
+  .field-input {
+    font-size: 1.1rem;
+    padding: 13px 14px;
+  }
+
+  .team-select {
+    font-size: 1.1rem;
+    padding: 13px 14px;
+  }
+
+  .field-mic-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
