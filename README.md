@@ -99,6 +99,20 @@ Data is stored in-memory during a session and persisted to JSON files on disk. A
 
 ---
 
+## Demo Video
+
+https://www.youtube.com/watch?v=PFGMG3xP6_I
+
+---
+
+## Hackathon
+
+Gemma 4 Good Hackathon 2026
+Track: Global Resilience
+https://www.kaggle.com/competitions/gemma-4-good-hackathon
+
+---
+
 ## License
 
 Apache License 2.0
